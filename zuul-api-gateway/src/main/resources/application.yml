@@ -8,10 +8,11 @@ zuul:
     ribbo-consumer:
       path: /ribbonapi/**
       serviceId: ribbo-consumer
+    feign-consumer:
+      path: /feignapi/**
+      serviceId: feign-consumer
 
 eureka:
-  instance:
-    instance-id: gateway-9000.com #起别名字，这句话要写在client之前才能生效（cloud版本魏2.0.3以上时），设定注册的名字
-  client:
+ client:
     serviceUrl:
       defaultZone: http://localhost:8781/eureka/

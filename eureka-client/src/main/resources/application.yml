@@ -1,0 +1,11 @@
+server:
+  port: 8783
+
+spring:
+  application:
+    name: serviceprovide
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8781/eureka/

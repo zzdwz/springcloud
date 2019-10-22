@@ -1,0 +1,49 @@
+eureka服务自动进入自我保护的问题
+参与文档 https://blog.csdn.net/wxgxgp/article/details/89788360
+
+当单个server  不自我注册时(eureka server一般都配置成不自我注册)
+
+Renews threshold = 2 × (n+1) × 0.85     //n为provide服务
+
+Renews = 2  ×  n
+
+当Renews > Renews threshold 不发生自我保护
+
+可以看到，当不注册自己时，在默认阈值情况下，当服务数量较小时一定会触发保护机制，其最小数量可由下式计算：
+
+2  × (n+1) × 0.85 < 2 × n
+n的最小取值为6
+
+即当n>=6时，非自注册在默认阈值下才不会进入保护模式
+
+
+当erureka-server注册自身时:
+
+Renews threshold = 2 × n × 0.85
+
+
+
+可以在server端通过如下配置降低阀值  (本eureka服务配置成0.7)
+eureka:
+  server:
+    renewal-percent-threshold: 0.7
+
+
+
+
+正常的微服务的一个架构
+
+一个服务注册中心(eureka服务)
+
+微服务（服务提供者, 类似于订单微服务、账户微服务）注册到服务注册中心中
+
+应用服务（可能是web应用服务等, 其中的逻辑可能使用到多个微服务， 比如说一个付款的服务，既调用到订单微服务【改变订单状态】又调用到账户【扣减账户金额】)
+某种程度上可以把应用服务理解为一个编排服务，对各个微服务提供的服务进行业务逻辑上的整合编排
+
+api网关服务(zuul,spring-gateway等技术实现)  api网关应该暴露出来的是应用服务中的服务
+
+
+
+
+
+

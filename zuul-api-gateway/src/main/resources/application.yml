@@ -1,0 +1,17 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: zuul-api-gateway
+zuul:
+  routes:
+    ribbo-consumer:
+      path: /ribbonapi/**
+      serviceId: ribbo-consumer
+
+eureka:
+  instance:
+    instance-id: gateway-9000.com #起别名字，这句话要写在client之前才能生效（cloud版本魏2.0.3以上时），设定注册的名字
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8781/eureka/

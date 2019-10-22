@@ -1,0 +1,17 @@
+server:
+  port: 8765
+spring:
+  application:
+    # 该服务的名字
+    name: feign-consumer
+eureka:
+  client:
+    serviceUrl:
+      # eureka服务的地址
+      defaultZone: http://localhost:8781/eureka/
+
+# 开启熔断机制
+feign:
+  hystrix:
+    enabled: true
+
